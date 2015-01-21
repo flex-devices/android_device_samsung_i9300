@@ -1,0 +1,5 @@
+#!/system/bin/sh
+
+echo  262262784 > /sys/block/vnswap0/disksize 
+mkswap /dev/block/vnswap0
+swapon /dev/block/vnswap0
