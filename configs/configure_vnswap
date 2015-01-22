@@ -1,5 +1,12 @@
 #!/system/bin/sh
 
-echo  262262784 > /sys/block/vnswap0/disksize 
-mkswap /dev/block/vnswap0
-swapon /dev/block/vnswap0
+SWAP_DEVICES="vnswap0"
+SWAP_SIZE="262262784"
+
+for SWAP_DEVICE in $SWAP_DEVICES; do
+	echo "$SWAP_SIZE" > "/sys/block/$SWAP_DEVICE/disksize"
+	mkswap "/dev/block/$SWAP_DEVICE"
+	swapon "/dev/block/$SWAP_DEVICE"
+done
+
+exit 0
