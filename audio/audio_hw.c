@@ -365,7 +365,7 @@ static int start_call(struct m0_audio_device *adev)
     } else {
        pcm_config_vx.rate = adev->wb_amr ? VX_WB_SAMPLING_RATE : VX_NB_SAMPLING_RATE;
     }
-
+    ALOGE("Starting call with WB_AMR=%d", adev->wb_amr);
     /* Open modem PCM channels */
     if (adev->pcm_modem_dl == NULL) {
         ALOGD("Opening PCM modem DL stream");
@@ -480,7 +480,7 @@ void audio_set_wb_amr_callback(void *data, int enable)
     pthread_mutex_lock(&adev->lock);
     if (adev->wb_amr != enable) {
         adev->wb_amr = enable;
-
+        ALOGE("WB_ARM status changed to %d", enable);
         /* reopen the modem PCMs at the new rate */
         if (adev->in_call) {
             end_call(adev);
